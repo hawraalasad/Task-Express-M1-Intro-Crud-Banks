@@ -1,29 +1,12 @@
 const express = require("express");
 const app = express();
 const accounts = require("./accounts");
+const accountRouter = require("./apis/accounts/accounts.routes");
+const PORT = 8000;
 //route
 app.use(express.json());
-app.get("/", (req, res) => {
-  return res.json("My name is Hawraa");
-});
+app.use("", accountRouter);
 
-app.get("/accounts", (req, res) => {
-  return res.status(200).json(accounts);
-});
-app.post("/accounts/create", (req, res) => {
-  console.log(req.body);
-  const newAccount = {
-    id: req.body.id,
-    username: req.body.username,
-    funds: req.body.funds,
-  };
-  accounts.push(newAccount);
-  res.status(201).json({
-    message: "added account",
-    data: accounts,
-  });
-});
-
-app.listen(8000, () => {
+app.listen(PORT, () => {
   console.log("Running");
 });
